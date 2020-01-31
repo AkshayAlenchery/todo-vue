@@ -8,7 +8,8 @@ const {
   hdel,
   lrem,
   hset,
-  hexists
+  hexists,
+  hget
 } = require('../models/todo.models')
 
 /**
@@ -42,9 +43,8 @@ const loadAllList = async (req, res) => {
     if (!listIds.length) return res.status(200).json({ listCount: 0, lists: [] })
     const allLists = []
     for (const listId of listIds) {
-      const list = await hgetall(listId)
-      list.listId = listId
-      allLists.push(list)
+      const list = await hget(listId, 'name')
+      allLists.push({ listId: listId, name: list })
     }
     res.status(200).json({ listCount: listIds.length, lists: allLists })
   } catch (err) {

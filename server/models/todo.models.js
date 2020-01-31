@@ -22,8 +22,6 @@ const hset = promisify(client.hset).bind(client)
 const hexists = promisify(client.hexists).bind(client)
 const hget = promisify(client.hget).bind(client)
 
-const lindex = promisify(client.lindex).bind(client)
-
 module.exports = {
   get,
   hmset,
@@ -35,6 +33,5 @@ module.exports = {
   lrem,
   hset,
   hexists,
-  hget,
-  lindex
+  hget
 }
