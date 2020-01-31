@@ -25,7 +25,7 @@ const createList = async (req, res) => {
     await hmset(listId, 'name', listName, 'todos', '[]')
     await rpush('listIds', listId)
     await incr('listIdCntr')
-    res.status(200).json({ listId: listId, listName: listName, todos: [] })
+    res.status(200).json({ listId: listId, name: listName })
   } catch (err) {
     res.status(500).json({ error: 'There was an error while connecting. Please try again later' })
   }
