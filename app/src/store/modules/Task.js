@@ -27,18 +27,30 @@ const actions = {
   updateTaskId: function({ commit }, taskId) {
     commit('setTaskId', taskId)
   },
-  updateTask: async function({ commit }, task) {
-    const { listId, ...taskDet } = task
+  updateTask: async function({ commit }, taskDet) {
+    const { listId, task } = taskDet
     const resp = await Axios({
       method: 'PUT',
       url: baseURL + 'tasks/' + listId,
-      data: taskDet,
+      data: task,
       headers: {
         'Content-Type': 'application/json'
       }
     })
     commit('updateTasks', resp.data)
-    commit('')
+  },
+  dltTask: function({ commit }, data) {
+    const resp = Axios({
+      method: 'DELETE',
+      url: baseURL + 'tasks/' + data.listId,
+      data: {
+        taskId: data.taskId
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    commit('deleteTask', data.taskId)
   }
 }
 
@@ -55,7 +67,8 @@ const mutations = {
   updateTasks: (state, data) => {
     const index = state.tasks.findIndex(task => task.taskId === data.task.taskId)
     state.tasks[index] = data.task
-  }
+  },
+  deleteTask: (state, taskId) => (state.tasks = state.tasks.filter(task => task.taskId !== taskId))
 }
 
 export default {

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2>Todo App</h2>
+    <h1 id="logo">Todo App</h1>
     <List v-if="appState.showLists" :appState="appState" />
     <Task v-if="appState.showTasks" :appState="appState" />
   </div>
@@ -16,7 +16,8 @@ export default {
     return {
       appState: {
         showLists: true,
-        showTasks: false
+        showTasks: false,
+        selectedListId: 0
       }
     }
   },
@@ -26,3 +27,18 @@ export default {
   }
 }
 </script>
+<style>
+body {
+  background: #eee;
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+#logo {
+  text-align: center;
+}
+</style>
