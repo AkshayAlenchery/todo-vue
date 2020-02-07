@@ -90,8 +90,7 @@ const updateList = async (req, res) => {
       return res.status(404).json({ error: 'The list you are looking for doesnot exist' })
     }
     list = await hset(listId, 'name', name)
-    list = await hgetall(listId)
-    res.status(200).json(list)
+    res.status(200).json({ listId: listId, name: name })
   } catch (err) {
     res.status(500).json({ error: 'There was an error while connecting. Please try again later' })
   }
